@@ -10,7 +10,14 @@ const makeBill = (price) => {
   console.log(`Bill for ${price} already done`)
 }
 
-myEventEmitter.on('coffee-order', makeCoffee)
-myEventEmitter.on('coffe-order', makeBill)
+const onCoffeeOrderedListener = ({name, price}) => {
+  makeCoffee(name)
+  makeBill(price)
+}
+
+myEventEmitter.on('coffee-order', onCoffeeOrderedListener)
+
+// myEventEmitter.on('coffee-order', makeCoffee)
+// myEventEmitter.on('coffe-order', makeBill)
 
 myEventEmitter.emit('coffee-order', {name: 'Americano', price: 15000})
